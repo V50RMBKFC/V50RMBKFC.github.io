@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>郭一凡 · 航空赛事履历</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        blackBase: '#050505',
+                        blackDeep: '#000000',
+                        spaceGray: '#111827',
+                        techCyan: '#00c2d8',
+                        silverGray: '#c8d1dd',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .scrollbar-hide::-webkit-scrollbar {display: none;}
+            .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+            .text-shadow { text-shadow: 0 0 18px rgba(0,194,216,0.35); }
+            .glow-border { box-shadow: 0 0 0 1px rgba(0,194,216,0.08), 0 0 18px rgba(0,194,216,0.12); }
+            .glass-card { background: rgba(18, 24, 39, 0.85); border: 1px solid rgba(255,255,255,0.06); backdrop-filter: blur(12px); }
+            .line-decor { border-left: 3px solid #00c2d8; padding-left: 1rem; }
+            .grid-bg { background-image: linear-gradient(rgba(0,194,216,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(0,194,216,0.03) 1px, transparent 1px); background-size:24px 24px; }
+            .star-bg { background-image: radial-gradient(circle at 10% 10%, rgba(0,194,216,0.06) 0%, transparent 20%), radial-gradient(circle at 90% 20%, rgba(0,194,216,0.05) 0%, transparent 18%), radial-gradient(circle at 50% 80%, rgba(0,194,216,0.04) 0%, transparent 22%); }
+            .back-btn { transition: all 0.3s ease; }
+            .back-btn:hover { background: rgba(0,194,216,0.15); color: #00c2d8; }
+        }
+        .fade-in { opacity:0; transform:translateY(24px); transition:all 0.6s ease-out; }
+        .fade-in.active { opacity:1; transform:translateY(0); }
+        html { scroll-behavior: smooth; }
+        body {
+            background: radial-gradient(circle at top left, rgba(0,194,216,0.08), transparent 35%),
+                        radial-gradient(circle at bottom right, rgba(0,194,216,0.06), transparent 35%),
+                        linear-gradient(180deg, #000000 0%, #050505 45%, #000000 100%);
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="text-silverGray font-sans scrollbar-hide star-bg">
+    <!-- 顶部导航栏 -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-blackBase/90 backdrop-blur-md border-b border-silverGray/10">
+        <div class="max-w-[1200px] mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- 返回上一级按钮 -->
+            <a href="javascript:history.back()" class="back-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-silverGray border border-silverGray/20">
+                <i class="fa fa-angle-left"></i>
+                <span>返回</span>
+            </a>
+
+            <a href="#" class="text-xl font-bold tracking-wide text-white">郭一凡・航空赛事履历</a>
+
+            <div class="flex gap-8">
+                <a href="#simflight" class="nav-link hover:text-techCyan transition-colors">模拟飞行</a>
+                <a href="#dronefootball" class="nav-link hover:text-techCyan transition-colors">无人机足球</a>
+                <a href="#airmodel" class="nav-link hover:text-techCyan transition-colors">航模</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero首屏区域 -->
+    <header class="max-w-[1200px] mx-auto px-6 pt-32 pb-20 flex flex-col md:flex-row items-center gap-12 relative">
+        <div class="md:w-1/2 fade-in">
+            <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold leading-tight text-white text-shadow">郭一凡</h1>
+            <h2 class="text-xl md:text-2xl text-techCyan mt-2">新津职高・航空运动竞技选手</h2>
+            <p class="mt-6 text-silverGray/90 leading-relaxed text-lg">
+                专注模拟飞行、无人机足球与航模竞技。中考417分，凭借航空竞技赛事全国金牌，成功保送成都航空职业技术大学，在全国青少年航空赛事持续深耕，创造四川省模拟飞行赛事历史性突破。
+            </p>
+        </div>
+        <div class="md:w-1/2 fade-in">
+            <!-- 插图位置1：个人形象照/飞行第一视角合成图 -->
+            <div class="rounded-xl shadow-lg overflow-hidden glow-border">
+                <div class="w-full h-[360px] bg-spaceGray/80 flex items-center justify-center text-silverGray/50">
+                    【插图位置1｜个人形象/飞行第一视角横图｜圆角12px】
+                </div>
+            </div>
+        </div>
+        <div class="absolute left-1/2 -translate-x-1/2 bottom-10 animate-float">
+            <i class="fa fa-angle-down text-2xl text-techCyan"></i>
+        </div>
+    </header>
+
+    <main class="max-w-[1200px] mx-auto px-6">
+        <!-- 模块一：模拟飞行 -->
+        <section id="simflight" class="py-24 border-b border-silverGray/10 fade-in">
+            <div class="glass-card rounded-2xl p-8 md:p-12">
+                <div class="flex flex-col md:flex-row gap-12 items-center">
+                    <div class="md:w-1/2">
+                        <h3 class="text-3xl font-bold line-decor text-white">全国青少年模拟飞行锦标赛</h3>
+                        <p class="text-silverGray/60 mt-1 mb-6">National Youth Flight Simulation Championship</p>
+                        <p class="text-silverGray/90 leading-relaxed">
+                            国家级官方航空体育赛事，航空运动后备人才选拔平台。2025年赛事首次有中职学校站上最高领奖台，实现四川省该赛事金牌零的突破。
+                        </p>
+                        <div class="mt-5">
+                            <p class="font-semibold text-white">参赛身份：新津职高ACE模拟飞行代表队选手</p>
+                            <p class="font-semibold mt-2 text-white">参赛项目</p>
+                            <ul class="list-disc pl-5 mt-2 text-silverGray/90 space-y-1">
+                                <li>Z-本场五边争霸赛（塞斯纳172）</li>
+                                <li>趣味竞速飞行</li>
+                            </ul>
+                        </div>
+                        <div class="mt-5">
+                            <p class="font-semibold text-white">赛事荣誉</p>
+                            <ul class="pl-0 mt-2 space-y-1 text-silverGray/90">
+                                <li>✅ 2025四川选拔赛：双项目冠军，四川省首位赛事双冠王</li>
+                                <li>✅ 第十六届国赛：Z-本场五边争霸赛 全国第一名</li>
+                                <li>✅ 第十六届国赛：趣味竞速飞行 全国第二名</li>
+                                <li>✅ 凭借赛事成绩保送成都航空职业技术大学</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-6">
+                            <span class="px-3 py-1 bg-techCyan/10 text-techCyan rounded-full text-sm">侧风修正</span>
+                            <span class="px-3 py-1 bg-techCyan/10 text-techCyan rounded-full text-sm">精准五边飞行</span>
+                            <span class="px-3 py-1 bg-techCyan/10 text-techCyan rounded-full text-sm">仪表飞行</span>
+                            <span class="px-3 py-1 bg-techCyan/10 text-techCyan rounded-full text-sm">赛场抗压操控</span>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 relative">
+                        <!-- 插图位置2：模拟飞行座舱/赛事现场 -->
+                        <div class="rounded-xl overflow-hidden shadow-md glow-border">
+                            <div class="w-full h-[300px] bg-spaceGray/80 flex items-center justify-center text-silverGray/50">
+                                【插图位置2｜模拟飞行座舱/国赛现场照片】
+                            </div>
+                        </div>
+                        <!-- 插图位置3：航线/飞行数据小图 悬浮右下角 -->
+                        <div class="absolute -bottom-4 -right-4 w-[160px] h-[120px] rounded-lg shadow-lg overflow-hidden border-2 border-techCyan/60">
+                            <div class="w-full h-full bg-spaceGray/90 flex items-center justify-center text-xs text-silverGray/50">
+                                【插图位置3｜飞行航线数据截图】
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模块二：无人机足球 -->
+        <section id="dronefootball" class="py-24 border-b border-silverGray/10 fade-in">
+            <div class="glass-card rounded-2xl p-8 md:p-12 grid-bg">
+                <div class="flex flex-col md:flex-row gap-12 items-center">
+                    <div class="md:w-1/2 order-2 md:order-1 relative">
+                        <!-- 插图位置4：无人机足球赛场全景 -->
+                        <div class="rounded-xl overflow-hidden shadow-md glow-border">
+                            <div class="w-full h-[300px] bg-spaceGray/80 flex items-center justify-center text-silverGray/50">
+                                【插图位置4｜无人机足球比赛全景图】
+                            </div>
+                        </div>
+                        <!-- 插图位置5：无人机特写悬浮 -->
+                        <div class="absolute -top-4 -left-4 w-[160px] h-[120px] rounded-lg shadow-lg overflow-hidden border-2 border-techCyan/60">
+                            <div class="w-full h-full bg-spaceGray/90 flex items-center justify-center text-xs text-silverGray/50">
+                                【插图位置5｜无人机设备特写】
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 order-1 md:order-2">
+                        <h3 class="text-3xl font-bold line-decor text-white">无人机足球</h3>
+                        <p class="text-silverGray/60 mt-1 mb-6">Drone Soccer</p>
+                        <p class="text-silverGray/90 leading-relaxed">
+                            新兴航空科技竞技项目，融合无人机操控、空间预判、战术布置与团队配合，考验选手快速反应能力与赛场战术思维。
+                        </p>
+                        <div class="mt-5">
+                            <p class="font-semibold text-white">参赛经历</p>
+                            <p class="mt-2 text-silverGray/90">代表新津职高ACE战队参与全国Ablefly无人机足球大赛，参与多轮国家级跨组别对抗训练与实战联赛。</p>
+                        </div>
+                        <div class="mt-5">
+                            <p class="font-semibold text-white">场上职责：攻防协同、战术执行、近距离精准操控</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-6">
+                            <span class="px-3 py-1 bg-techCyan/10 text-techCyan rounded-full text-sm">空间判断</span>
+                            <span class="px-3 py-1 bg-techCyan/10 text-techCyan rounded-full text-sm">团队配合</span>
+                            <span class="px-3 py-1 bg-techCyan/10 text-techCyan rounded-full text-sm">快速反应</span>
+                            <span class="px-3 py-1 bg-techCyan/10 text-techCyan rounded-full text-sm">近距离避障操控</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模块三：航模 -->
+        <section id="airmodel" class="py-24 fade-in">
+            <div class="glass-card rounded-2xl p-8 md:p-12">
+                <h3 class="text-3xl font-bold line-decor text-white">航模</h3>
+                <p class="text-silverGray/60 mt-1 mb-6">Aircraft Model</p>
+                <div class="text-silverGray/90 leading-relaxed max-w-3xl">
+                    <p>深耕固定翼、多旋翼航模手工制作、整机调试与外场飞行实践。系统学习空气动力学、动力系统调校、飞行器维修；持续参与市级、省级航模锦标赛集训，跟随ACE航模梯队参与四川省“星火杯”航空航天模型锦标赛选拔训练。</p>
+                    <p class="mt-3">从图纸搭建、零部件组装到场外实操飞行，打通航模“制作—调试—飞行”完整实践链路。</p>
+                </div>
+                <!-- 2×2图片网格 -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-10">
+                    <div class="rounded-lg overflow-hidden shadow hover:scale-[1.02] hover:shadow-lg transition-all duration-300 glow-border">
+                        <div class="h-[220px] bg-spaceGray/80 flex items-center justify-center text-silverGray/50">
+                            【插图位置6｜航模整机展示图】
+                        </div>
+                    </div>
+                    <div class="rounded-lg overflow-hidden shadow hover:scale-[1.02] hover:shadow-lg transition-all duration-300 glow-border">
+                        <div class="h-[220px] bg-spaceGray/80 flex items-center justify-center text-silverGray/50">
+                            【插图位置7｜航模制作细节图】
+                        </div>
+                    </div>
+                    <div class="rounded-lg overflow-hidden shadow hover:scale-[1.02] hover:shadow-lg transition-all duration-300 glow-border">
+                        <div class="h-[220px] bg-spaceGray/80 flex items-center justify-center text-silverGray/50">
+                            【插图位置8｜外场飞行实拍】
+                        </div>
+                    </div>
+                    <div class="rounded-lg overflow-hidden shadow hover:scale-[1.02] hover:shadow-lg transition-all duration-300 glow-border">
+                        <div class="h-[220px] bg-spaceGray/80 flex items-center justify-center text-silverGray/50">
+                            【插图位置9｜航模设备配件特写】
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-blackBase/90 text-white py-14 mt-16 border-t border-silverGray/10">
+        <div class="max-w-[1200px] mx-auto px-6 text-center">
+            <h4 class="text-xl font-semibold">郭一凡 | 新津职高</h4>
+            <p class="text-silverGray/70 mt-2">航空赛事履历・持续更新中</p>
+            <div class="flex justify-center gap-6 mt-6 text-techCyan text-xl">
+                <a href="#" class="hover:text-white transition-colors"><i class="fa fa-weibo"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa fa-wechat"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa fa-qq"></i></a>
+            </div>
+            <p class="text-slate-400 text-sm mt-8">© 2026 Aviation Competition Resume</p>
+        </div>
+    </footer>
+
+    <script>
+        // 滚动元素入场动画
+        const observer = new IntersectionObserver((entries)=>{
+            entries.forEach(item=>{
+                if(item.isIntersecting){
+                    item.target.classList.add('active');
+                }
+            })
+        },{threshold:0.12});
+        document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+
+        // 导航高亮
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(".nav-link");
+        window.addEventListener("scroll",()=>{
+            let current = "";
+            sections.forEach(sec=>{
+                const top = sec.offsetTop - 150;
+                if(window.scrollY >= top) current = sec.getAttribute("id");
+            })
+            navLinks.forEach(link=>{
+                link.classList.remove("text-techCyan");
+                if(link.getAttribute("href") === `#${current}`){
+                    link.classList.add("text-techCyan");
+                }
+            })
+        })
+
+        // 导航栏滚动阴影
+        const nav = document.getElementById("navbar");
+        window.addEventListener('scroll',()=>{
+            if(window.scrollY>80){
+                nav.classList.add("shadow-md");
+            }else{
+                nav.classList.remove("shadow-md");
+            }
+        })
+    </script>
+</body>
+</html>
