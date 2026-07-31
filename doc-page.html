@@ -24,7 +24,7 @@
             }
         }
     </script>
-   <style type="text/tailwindcss">
+<style type="text/tailwindcss">
 @layer utilities {
   /* 滚动条隐藏 */
   .scrollbar-hide::-webkit-scrollbar {
@@ -92,6 +92,35 @@
   .fade-in.active {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* 图片点击放大弹窗专用样式 */
+  .img-box {
+    cursor: pointer; /* 鼠标放图片上变成小手，提示可点击 */
+  }
+  /* 全屏黑色遮罩弹窗 */
+  .image-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.85);
+    display: none; /* 默认隐藏 */
+    z-index: 999; /* 浮在所有页面内容最上层 */
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  /* 弹窗打开时显示 */
+  .image-popup.open {
+    display: flex;
+  }
+  /* 弹窗里的大图限制大小，不会超出屏幕 */
+  .image-popup img {
+    max-width: 85%;
+    max-height: 85vh;
+    border-radius: 6px;
   }
 }
 </style>
@@ -267,7 +296,7 @@
     </footer>
 
     <script>
-        // 滚动元素入场动画
+              // 滚动元素入场动画
         const observer = new IntersectionObserver((entries)=>{
             entries.forEach(item=>{
                 if(item.isIntersecting){
@@ -302,6 +331,26 @@
             }else{
                 nav.classList.remove("shadow-md");
             }
+        })
+
+        // 图片点击放大预览功能
+        const popupDom = document.createElement('div');
+        popupDom.className = 'image-popup';
+        popupDom.innerHTML = `<img src="" alt="">`;
+        document.body.appendChild(popupDom);
+        const bigImg = popupDom.querySelector('img');
+
+        // 给所有带img-box的图片绑定点击事件
+        document.querySelectorAll('.img-box').forEach(box => {
+            box.addEventListener('click', () => {
+                const smallImgSrc = box.querySelector('img').src;
+                bigImg.src = smallImgSrc;
+                popupDom.classList.add('open');
+            })
+        })
+        // 点击黑色背景关闭大图
+        popupDom.addEventListener('click', () => {
+            popupDom.classList.remove('open');
         })
     </script>
 </body>
