@@ -25,27 +25,22 @@
         }
     </script>
     <style type="text/tailwindcss">
-        @layer utilities {
-            .scrollbar-hide::-webkit-scrollbar {display: none;}
-            .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-            .text-shadow { text-shadow: 0 0 18px rgba(0,194,216,0.35); }
-            .glow-border { box-shadow: 0 0 0 1px rgba(0,194,216,0.08), 0 0 18px rgba(0,194,216,0.12); }
-            .glass-card { background: rgba(18, 24, 39, 0.85); border: 1px solid rgba(255,255,255,0.06); backdrop-filter: blur(12px); }
-            .line-decor { border-left: 3px solid #00c2d8; padding-left: 1rem; }
-            .grid-bg { background-image: linear-gradient(rgba(0,194,216,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(0,194,216,0.03) 1px, transparent 1px); background-size:24px 24px; }
-            .star-bg { background-image: radial-gradient(circle at 10% 10%, rgba(0,194,216,0.06) 0%, transparent 20%), radial-gradient(circle at 90% 20%, rgba(0,194,216,0.05) 0%, transparent 18%), radial-gradient(circle at 50% 80%, rgba(0,194,216,0.04) 0%, transparent 22%); }
-            .back-btn { transition: all 0.3s ease; }
-            .back-btn:hover { background: rgba(0,194,216,0.15); color: #00c2d8; }
-        }
-        .fade-in { opacity:0; transform:translateY(24px); transition:all 0.6s ease-out; }
-        .fade-in.active { opacity:1; transform:translateY(0); }
-        html { scroll-behavior: smooth; }
-        body {
-            background: radial-gradient(circle at top left, rgba(0,194,216,0.08), transparent 35%),
-                        radial-gradient(circle at bottom right, rgba(0,194,216,0.06), transparent 35%),
-                        linear-gradient(180deg, #000000 0%, #050505 45%, #000000 100%);
-            background-attachment: fixed;
-        }
+      .grid-bg {
+    /* 深空纯黑底色 + 淡青星云光晕 */
+    background: 
+        radial-gradient(circle 700px at 10% 10%, rgba(0, 194, 216, 0.07), transparent 60%),
+        radial-gradient(circle 600px at 90% 90%, rgba(0, 194, 216, 0.05), transparent 60%),
+        linear-gradient(180deg, #020208 0%, #05050c 50%, #020208 100%);
+    background-attachment: fixed;
+    /* 网格细线纹理 */
+    background-image: 
+        linear-gradient(rgba(0,194,216,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,194,216,0.04) 1px, transparent 1px),
+        radial-gradient(circle 700px at 10% 10%, rgba(0, 194, 216, 0.07), transparent 60%),
+        radial-gradient(circle 600px at 90% 90%, rgba(0, 194, 216, 0.05), transparent 60%),
+        linear-gradient(180deg, #020208 0%, #05050c 50%, #020208 100%);
+    background-size: 40px 40px, 40px 40px, 100% 100%, 100% 100%, 100% 100%;
+}
     </style>
 </head>
 <body class="grid-bg scrollbar-hide text-silverGray font-sans">
