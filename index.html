@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一凡的秘密基地</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        }
+
+        :root {
+            --bg-main: #0b0e18;
+            --bg-deep: #070910;
+            --primary: #6394ff;
+            --accent: #a855f7;
+            --text-white: #ffffff;
+            --text-gray: #c5cde0;
+            --text-lightgray: #8993ab;
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-gray);
+            overflow-x: hidden;
+        }
+
+        /* 深色科幻极简背景 */
+        .bg-sci-fi {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(99, 148, 255, 0.08), transparent 25%),
+                radial-gradient(circle at 90% 20%, rgba(168, 85, 247, 0.06), transparent 28%),
+                linear-gradient(180deg, #0b0e18 0%, #070910 100%);
+        }
+
+        .grid-overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image:
+                linear-gradient(rgba(99, 148, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 148, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.35;
+        }
+
+        .scan-line {
+            position: fixed;
+            width: 100%;
+            height: 2px;
+            z-index: -1;
+            background: linear-gradient(90deg, transparent, rgba(99, 148, 255, 0.15), transparent);
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        /* 滚动条 */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070910;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 26px;
+            color: var(--text-white);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        /* 导航栏 */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+            background: rgba(11, 14, 24, 0.45);
+            border-bottom: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        header.scrolled {
+            background: rgba(11, 14, 24, 0.85);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            color: var(--text-white);
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-list a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: 0.25s;
+        }
+
+        .nav-list a:hover {
+            color: var(--primary);
+        }
+
+        .menu-btn {
+            display: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* 首屏 */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #home h1 {
+            font-size: 44px;
+            color: var(--text-white);
+            margin-bottom: 14px;
+        }
+
+        #home p {
+            font-size: 18px;
+            color: var(--text-lightgray);
+            margin-bottom: 48px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.25s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+        }
+
+        /* 卡片 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 26px;
+            backdrop-filter: blur(6px);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .card h3 {
+            color: var(--text-white);
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: var(--text-lightgray);
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .card .btn-small {
+            display: inline-block;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.25s;
+        }
+
+        .card .btn-small:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* 文件仓库 */
+        .folder-block {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .folder-block h3 {
+            color: var(--text-white);
+            margin-bottom: 16px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .file-item:last-child {
+            border: none;
+        }
+
+        .file-item a {
+            color: var(--text-gray);
+            text-decoration: none;
+        }
+
+        .file-item a:hover {
+            color: var(--primary);
+        }
+
+        .file-size {
+            color: var(--text-lightgray);
+            font-size: 14px;
+        }
+
+        /* 关于我 */
+        .about-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .social-item {
+            margin: 12px 0;
+        }
+
+        .social-item a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* 页脚 */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-lightgray);
+            font-size: 14px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav-list {
+                display: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-wrap {
+                grid-template-columns: 1fr;
+            }
+
+            #home h1 {
+                font-size: 32px;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: 0.6s ease;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- 深色科幻背景 -->
+    <div class="bg-sci-fi"></div>
+    <div class="grid-overlay"></div>
+    <div class="scan-line"></div>
+
+    <!-- 导航栏 -->
+    <header id="navbar">
+        <div class="container nav-wrap">
+            <div class="logo">一凡的秘密基地</div>
+            <ul class="nav-list">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#flight">模拟飞行专区</a></li>
+                <li><a href="#storage">文件仓库</a></li>
+                <li><a href="#about">关于我</a></li>
+            </ul>
+            <div class="menu-btn">☰</div>
+        </div>
+    </header>
+
+    <!-- 首屏 -->
+    <section id="home">
+        <h1>欢迎来到一凡的秘密基地</h1>
+        <p>存放热爱与日常的数字仓库</p>
+        <a href="#flight" class="btn">开始探索</a>
+    </section>
+
+    <!-- 模拟飞行专区 -->
+    <section id="flight" class="container fade-in">
+        <h2 class="section-title">模拟飞行专区</h2>
+        <div class="card-grid">
+            <div class="card">
+                <h3>赛事获奖记录</h3>
+                <p>全国青少年模拟飞行锦标赛、航空模型赛事相关资料存档</p>
+                <a href="#" class="btn-small">查看文件</a>
+            </div>
+            <div class="card">
+                <h3>模拟飞行资料</h3>
+                <p>飞行实操笔记、理论资料、机型参考文档汇总</p>
+                <a href="#" class="btn-small">查看文件</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 文件仓库 -->
+    <section id="storage" class="container fade-in">
+        <h2 class="section-title">文件仓库・资源收纳</h2>
+
+        <div class="folder-block">
+            <h3>📁 电影资源</h3>
+            <div class="file-item">
+                <a href="#">影视合集</a>
+                <span class="file-size">待更新</span>
+            </div>
+        </div>
+
+        <div class="folder-block">
+            <h3>📁 游戏资源</h3>
+            <div class="file-item">
+                <a href="#">游戏工具、游戏相关资源</a>
+                <span class="file-size">待更新</span>
+            </div>
+        </div>
+
+        <div class="folder-block">
+            <h3>📁 APP安装包</h3>
+            <div class="file-item">
+                <a href="#">电脑、手机实用软件安装包</a>
+                <span class="file-size">待更新</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我（完全保留原样） -->
+    <section id="about" class="container fade-in">
+        <h2 class="section-title">关于我</h2>
+        <div class="about-wrap">
+            <div>
+                <p>热爱航空与模拟飞行，长期参与青少年航空赛事。
+                <br>不断积累飞行经验、整理学习资料，搭建这个秘密基地用来存放所有资料与作品。
+                <br>持续探索航空运动、网页创作、各类实用工具。</p>
+            </div>
+            <div>
+                <div class="social-item"><strong>联系方式</strong></div>
+                <div class="social-item"><a href="#">社交账号A（替换链接）</a></div>
+                <div class="social-item"><a href="#">社交账号B（替换链接）</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        © 2025 一凡的秘密基地・用心存放每一份热爱
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        const navbar = document.getElementById("navbar");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+
+        // 滚动渐入动画
+        const observer = new IntersectionObserver((items) => {
+            items.forEach(item => {
+                if (item.isIntersecting) {
+                    item.target.classList.add("show");
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
