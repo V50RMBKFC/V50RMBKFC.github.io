@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>一凡的秘密基地</title>
+    <!-- 引入Font Awesome图标库 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -31,18 +33,20 @@
             overflow-x: hidden;
         }
 
-        /* 深色科幻极简背景 */
+        /* 融合履历同款光晕底色 */
         .bg-sci-fi {
             position: fixed;
             width: 100%;
             height: 100%;
             z-index: -2;
             background:
-                radial-gradient(circle at 10% 10%, rgba(99, 148, 255, 0.08), transparent 25%),
-                radial-gradient(circle at 90% 20%, rgba(168, 85, 247, 0.06), transparent 28%),
+                radial-gradient(circle 700px at 10% 10%, rgba(99, 148, 255, 0.07), transparent 60%),
+                radial-gradient(circle 600px at 90% 90%, rgba(168, 85, 247, 0.05), transparent 60%),
                 linear-gradient(180deg, #0b0e18 0%, #070910 100%);
+            background-attachment: fixed;
         }
 
+        /* 网格线保留，和履历网格风格统一 */
         .grid-overlay {
             position: fixed;
             width: 100%;
@@ -51,10 +55,11 @@
             background-image:
                 linear-gradient(rgba(99, 148, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(99, 148, 255, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
+            background-size: 40px 40px;
             opacity: 0.35;
         }
 
+        /* 扫描线动画保留 */
         .scan-line {
             position: fixed;
             width: 100%;
@@ -278,7 +283,7 @@
             font-size: 14px;
         }
 
-        /* 关于我 */
+        /* 关于我联系方式样式修改 */
         .about-wrap {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -287,11 +292,14 @@
 
         .social-item {
             margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .social-item a {
+        .social-item i {
             color: var(--primary);
-            text-decoration: none;
+            font-size: 18px;
         }
 
         /* 页脚 */
@@ -338,7 +346,7 @@
     </style>
 </head>
 <body>
-    <!-- 深色科幻背景 -->
+    <!-- 深色科幻背景三层叠加：光晕底色+网格+扫描线 -->
     <div class="bg-sci-fi"></div>
     <div class="grid-overlay"></div>
     <div class="scan-line"></div>
@@ -370,7 +378,7 @@
         <div class="card-grid">
             <div class="card">
                 <h3>赛事获奖记录</h3>
-                <p>全国青少年模拟飞行锦标赛、航空模型赛事相关资料存档</p>
+                <p>全国青少年模拟飞行锦标赛、航空模型赛事相关资料</p>
                 <a href="doc-page.html" class="btn-small">查看文档</a>
             </div>
             <div class="card">
@@ -410,26 +418,32 @@
         </div>
     </section>
 
-    <!-- 关于我（完全保留原样） -->
+    <!-- 关于我 已修改竖向图标联系方式 -->
     <section id="about" class="container fade-in">
         <h2 class="section-title">关于我</h2>
         <div class="about-wrap">
             <div>
-                <p>热爱航空与模拟飞行，长期参与青少年航空赛事。
+                <p>一个普通人，热爱航空与模拟飞行，长期参与青少年航空赛事。
                 <br>不断积累飞行经验、整理学习资料，搭建这个秘密基地用来存放所有资料与作品。
-                <br>持续探索航空运动、网页创作、各类实用工具。</p>
+                <br>在大学，我将继续努力，打拼一片自己的天地！</p>
             </div>
             <div>
                 <div class="social-item"><strong>联系方式</strong></div>
-                <div class="social-item"><a href="#">微信</a></div>
-                <div class="social-item"><a href="#">QQ</a></div>
+                <div class="social-item">
+                    <i class="fa fa-wechat"></i>
+                    <span>：Gik_12-15</span>
+                </div>
+                <div class="social-item">
+                    <i class="fa fa-qq"></i>
+                    <span>：3909407468</span>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- 页脚 -->
     <footer>
-        © 2025 一凡的秘密基地・用心存放每一份热爱
+        © 2026 一凡的秘密基地・用心存放每一份热爱
     </footer>
 
     <script>
