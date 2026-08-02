@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟飞行资料 | 一凡的秘密基地</title>
+    <!-- Font Awesome 图标 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        }
+
+        /* 全局主题变量 和主页完全统一 */
+        :root {
+            --bg-main: #0b0e18;
+            --bg-deep: #070910;
+            --primary: #6394ff;
+            --accent: #a855f7;
+            --text-white: #ffffff;
+            --text-gray: #c5cde0;
+            --text-lightgray: #8993ab;
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-gray);
+            overflow-x: hidden;
+        }
+
+        /* 三层科幻背景 与主页一致 */
+        .bg-sci-fi {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background:
+                radial-gradient(circle 700px at 10% 10%, rgba(99, 148, 255, 0.07), transparent 60%),
+                radial-gradient(circle 600px at 90% 90%, rgba(168, 85, 247, 0.05), transparent 60%),
+                linear-gradient(180deg, #0b0e18 0%, #070910 100%);
+            background-attachment: fixed;
+        }
+
+        .grid-overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image:
+                linear-gradient(rgba(99, 148, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 148, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.35;
+        }
+
+        .scan-line {
+            position: fixed;
+            width: 100%;
+            height: 2px;
+            z-index: -1;
+            background: linear-gradient(90deg, transparent, rgba(99, 148, 255, 0.15), transparent);
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        /* 滚动条样式同步主页 */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070910;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 26px;
+            color: var(--text-white);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        /* 返回顶部/首页按钮 */
+        .back-home {
+            margin: 40px 0 20px;
+        }
+        .back-home a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.25s;
+        }
+        .back-home a:hover {
+            color: var(--text-white);
+            gap: 12px;
+        }
+
+        /* 资料板块卡片（左右图文布局，复刻履历区块风格） */
+        .data-block {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 30px;
+            backdrop-filter: blur(6px);
+            margin-bottom: 32px;
+            transition: 0.3s;
+        }
+        .data-block:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+        .block-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 36px;
+            align-items: center;
+        }
+        .block-text h3 {
+            color: var(--text-white);
+            font-size: 22px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .block-text p {
+            line-height: 1.8;
+            font-size: 15px;
+            color: var(--text-gray);
+            margin-bottom: 12px;
+        }
+        .block-text .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .tag {
+            padding: 4px 12px;
+            border: 1px solid rgba(99, 148, 255, 0.3);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--primary);
+        }
+
+        /* 右侧图片占位框 */
+        .img-box {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: rgba(99, 148, 255, 0.06);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-lightgray);
+            gap: 10px;
+        }
+        .img-box i {
+            font-size: 40px;
+            color: var(--primary);
+            opacity: 0.6;
+        }
+        .img-box span {
+            font-size: 14px;
+        }
+
+        /* 底部关于联系方式区块 */
+        .contact-area {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--glass-border);
+        }
+        .contact-area h3 {
+            color: var(--text-white);
+            margin-bottom: 20px;
+        }
+        .social-item {
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .social-item i {
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        /* 页脚 */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-lightgray);
+            font-size: 14px;
+        }
+
+        /* 滚动渐入动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: 0.6s ease;
+        }
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .block-inner {
+                grid-template-columns: 1fr;
+            }
+            .data-block {
+                padding: 22px;
+            }
+            .section-title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 统一三层背景 -->
+    <div class="bg-sci-fi"></div>
+    <div class="grid-overlay"></div>
+    <div class="scan-line"></div>
+
+    <div class="container">
+        <!-- 返回首页按钮 -->
+        <div class="back-home">
+            <a href="index.html">
+                <i class="fa fa-arrow-left"></i> 返回首页
+            </a>
+        </div>
+
+        <h2 class="section-title fade-in">模拟飞行全套资料合集</h2>
+
+        <!-- 板块1：红牛朗利特 -->
+        <div class="data-block fade-in">
+            <div class="block-inner">
+                <div class="block-text">
+                    <h3><i class="fa fa-plane"></i> 红牛朗利特飞行赛道</h3>
+                    <p>红牛特技飞行世界巡回赛经典赛道，赛事标准低空障碍竞速航线，国内青少年模拟飞行锦标赛必考科目。</p>
+                    <p>包含完整赛道地图坐标、标杆飞行路线、过弯修正参数、赛斯纳172侧风修正教程、赛事扣分点详解。</p>
+                    <p>配套官方赛道地图、训练分段航线、极限过弯操作技巧文档，适合赛前集训日常练习。</p>
+                    <div class="tag-group">
+                        <span class="tag">锦标赛必考</span>
+                        <span class="tag">低空竞速</span>
+                        <span class="tag">赛斯纳172</span>
+                    </div>
+                </div>
+                <!-- 图片占位 后续直接替换src即可 -->
+                <div class="img-box">
+                    <i class="fa fa-picture-o"></i>
+                    <span>红牛朗利特赛道示意图（此处放入图片）</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 板块2：伊斯坦布尔航线 -->
+        <div class="data-block fade-in">
+            <div class="block-inner">
+                <div class="block-text">
+                    <h3><i class="fa fa-globe"></i> 伊斯坦布尔长途航线</h3>
+                    <p>民航标准转场航线，覆盖起飞爬升、航路巡航、进近五边完整民航标准操作程序(SOP)。</p>
+                    <p>资料包含机场跑道参数、标准离场进场程序、仪表飞行ILS进近教程、高度速度分配表。</p>
+                    <p>适配微软模拟飞行2024、FSX全平台，适合学习民航规范飞行流程，提升仪表飞行基础能力。</p>
+                    <div class="tag-group">
+                        <span class="tag">民航转场</span>
+                        <span class="tag">仪表进近</span>
+                        <span class="tag">MSFS/FSX</span>
+                    </div>
+                </div>
+                <div class="img-box">
+                    <i class="fa fa-picture-o"></i>
+                    <span>伊斯坦布尔机场航线图（此处放入图片）</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 板块3：本场五边 -->
+        <div class="data-block fade-in">
+            <div class="block-inner">
+                <div class="block-text">
+                    <h3><i class="fa fa-map-marker"></i> 本场标准五边起降</h3>
+                    <p>飞行入门核心基础科目，所有航空赛事、飞行训练必修内容，包含起飞、一边/二边/三边/四边/五边完整流程。</p>
+                    <p>详细标注每个边标准高度、转向时机、襟翼起落架操作逻辑、侧风修正、接地拉平操作要点。</p>
+                    <p>新手入门零基础教程，搭配常见失误纠错，适合日常基础巩固、赛前基础考核训练。</p>
+                    <div class="tag-group">
+                        <span class="tag">飞行基础</span>
+                        <span class="tag">五边起降</span>
+                        <span class="tag">新手入门</span>
+                    </div>
+                </div>
+                <div class="img-box">
+                    <i class="fa fa-picture-o"></i>
+                    <span>本场五边飞行轨迹图（此处放入图片）</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部联系方式区域 -->
+        <div class="contact-area fade-in">
+            <h3>联系我 获取完整资料包</h3>
+            <div class="social-item">
+                <i class="fa fa-wechat"></i>
+                <span>微信：Gik_12-15</span>
+            </div>
+            <div class="social-item">
+                <i class="fa fa-qq"></i>
+                <span>QQ：3909407468</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        © 2026 一凡的秘密基地・用心存放每一份热爱
+    </footer>
+
+    <script>
+        // 滚动渐入动画 和主页逻辑完全一致
+        const observer = new IntersectionObserver((items) => {
+            items.forEach(item => {
+                if (item.isIntersecting) {
+                    item.target.classList.add("show");
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
