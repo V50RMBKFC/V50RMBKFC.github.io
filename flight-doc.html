@@ -168,7 +168,7 @@
             color: var(--primary);
         }
 
-        /* 右侧图片占位框 */
+        /* 右侧图片占位框 + hover上浮效果 */
         .img-box {
             width: 100%;
             aspect-ratio: 16 / 9;
@@ -181,6 +181,14 @@
             justify-content: center;
             color: var(--text-lightgray);
             gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        /* 鼠标悬浮上浮 */
+        .img-box:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(99, 148, 255, 0.12);
         }
         .img-box i {
             font-size: 40px;
@@ -190,26 +198,76 @@
         .img-box span {
             font-size: 14px;
         }
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+        }
 
-        /* 底部关于联系方式区块 */
+        /* ========== 图片全屏放大弹窗 ========== */
+        .img-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.92);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+        .img-modal.show {
+            display: flex;
+        }
+        .img-modal img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 8px;
+        }
+        .modal-close {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            color: #fff;
+            font-size: 32px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        /* 横向居中联系方式 */
         .contact-area {
             margin-top: 60px;
-            padding-top: 40px;
+            padding: 40px 30px;
             border-top: 1px solid var(--glass-border);
+            text-align: center;
         }
         .contact-area h3 {
             color: var(--text-white);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            font-size: 20px;
+        }
+        .social-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
         }
         .social-item {
-            margin: 12px 0;
             display: flex;
             align-items: center;
             gap: 8px;
+            font-size: 16px;
         }
         .social-item i {
             color: var(--primary);
-            font-size: 18px;
+            font-size: 20px;
         }
 
         /* 页脚 */
@@ -241,6 +299,11 @@
             }
             .section-title {
                 font-size: 22px;
+            }
+            /* 手机端联系方式垂直排列 */
+            .social-wrap {
+                flex-direction: column;
+                gap: 16px;
             }
         }
     </style>
@@ -275,10 +338,12 @@
                         <span class="tag">赛斯纳172</span>
                     </div>
                 </div>
-                <!-- 图片占位 后续直接替换src即可 -->
-                <div class="img-box">
+                <!-- 图片容器，点击放大 -->
+                <div class="img-box" data-img-src="hongniu.png">
                     <i class="fa fa-picture-o"></i>
                     <span>红牛朗利特赛道示意图（此处放入图片）</span>
+                    <!-- 替换图片示例，删除上面图标文字，放开下面代码 -->
+                    <!-- <img src="hongniu.png"> -->
                 </div>
             </div>
         </div>
@@ -297,9 +362,10 @@
                         <span class="tag">MSFS/FSX</span>
                     </div>
                 </div>
-                <div class="img-box">
+                <div class="img-box" data-img-src="yisitabul.png">
                     <i class="fa fa-picture-o"></i>
                     <span>伊斯坦布尔机场航线图（此处放入图片）</span>
+                    <!-- <img src="yisitabul.png"> -->
                 </div>
             </div>
         </div>
@@ -318,25 +384,34 @@
                         <span class="tag">新手入门</span>
                     </div>
                 </div>
-                <div class="img-box">
+                <div class="img-box" data-img-src="wubian.png">
                     <i class="fa fa-picture-o"></i>
                     <span>本场五边飞行轨迹图（此处放入图片）</span>
+                    <!-- <img src="wubian.png"> -->
                 </div>
             </div>
         </div>
 
-        <!-- 底部联系方式区域 -->
+        <!-- 底部联系方式区域【横向居中布局】 -->
         <div class="contact-area fade-in">
             <h3>联系我 获取完整资料包</h3>
-            <div class="social-item">
-                <i class="fa fa-wechat"></i>
-                <span>微信：Gik_12-15</span>
-            </div>
-            <div class="social-item">
-                <i class="fa fa-qq"></i>
-                <span>QQ：3909407468</span>
+            <div class="social-wrap">
+                <div class="social-item">
+                    <i class="fa fa-wechat"></i>
+                    <span>微信：Gik_12-15</span>
+                </div>
+                <div class="social-item">
+                    <i class="fa fa-qq"></i>
+                    <span>QQ：3909407468</span>
+                </div>
             </div>
         </div>
+    </div>
+
+    <!-- 图片全屏弹窗容器 -->
+    <div class="img-modal" id="imgModal">
+        <span class="modal-close" id="closeModal"><i class="fa fa-times"></i></span>
+        <img id="modalImg" src="" alt="大图预览">
     </div>
 
     <!-- 页脚 -->
@@ -353,8 +428,43 @@
                 }
             });
         }, { threshold: 0.15 });
-
         document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+
+        // ========== 图片点击放大弹窗逻辑 ==========
+        const modal = document.getElementById("imgModal");
+        const modalImg = document.getElementById("modalImg");
+        const closeBtn = document.getElementById("closeModal");
+        const imgBoxList = document.querySelectorAll(".img-box");
+
+        // 点击图片框打开弹窗
+        imgBoxList.forEach(box => {
+            box.addEventListener("click", () => {
+                const src = box.getAttribute("data-img-src");
+                // 如果内部有img标签，优先读取图片真实地址
+                const innerImg = box.querySelector("img");
+                if(innerImg){
+                    modalImg.src = innerImg.src;
+                }else{
+                    modalImg.src = src;
+                }
+                modal.classList.add("show");
+                document.body.style.overflow = "hidden";
+            })
+        })
+
+        // 关闭弹窗
+        function closeModalFunc(){
+            modal.classList.remove("show");
+            document.body.style.overflow = "";
+        }
+        closeBtn.addEventListener("click", closeModalFunc);
+        modal.addEventListener("click", (e)=>{
+            if(e.target === modal) closeModalFunc();
+        })
+        // ESC键关闭
+        document.addEventListener("keydown", (e)=>{
+            if(e.key === "Escape") closeModalFunc();
+        })
     </script>
 </body>
 </html>
